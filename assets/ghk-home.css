@@ -710,6 +710,32 @@ footer a:hover {
   stroke: #fff;
 }
 
+/* Cart line-item controls: keep minus/plus/delete icons visible */
+#header-group #header-component .cart-drawer__dialog .quantity-selector button {
+  background: var(--ghk-color-hunter);
+  border-color: var(--ghk-color-hunter);
+  color: #fff;
+}
+
+#header-group #header-component .cart-drawer__dialog .quantity-selector button :is(svg, path) {
+  color: #fff;
+  fill: none;
+  stroke: #fff;
+}
+
+#header-group #header-component .cart-drawer__dialog .cart-items__remove {
+  background: var(--ghk-color-hunter);
+  border: 1px solid var(--ghk-color-hunter);
+  color: #fff;
+  border-radius: 999px;
+}
+
+#header-group #header-component .cart-drawer__dialog .cart-items__remove :is(svg, path) {
+  color: #fff;
+  fill: #fff;
+  stroke: #fff;
+}
+
 @media (max-width: 999px) {
   .ghk-collections__grid,
   .ghk-gallery__grid,
