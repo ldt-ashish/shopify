@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" role="img" aria-labelledby="title desc">
+  <title id="title">Garden Heritage UK</title>
+  <desc id="desc">Garden Heritage UK logo mark</desc>
+  <rect width="420" height="220" fill="#eeece4"/>
+  <g fill="#2d4739">
+    <path d="M186 52c10-18 18-24 24-24s14 6 24 24c-8-3-15-4-24-4s-16 1-24 4z"/>
+    <path d="M164 66c8-20 22-30 40-30-12 8-15 22-16 30-8-2-15-2-24 0z"/>
+    <path d="M256 66c-9-2-16-2-24 0-1-8-4-22-16-30 18 0 32 10 40 30z"/>
+    <rect x="208" y="54" width="4" height="26" rx="2"/>
+  </g>
+  <g fill="#2d4739" font-family="'EB Garamond', Georgia, serif" text-anchor="middle">
+    <text x="210" y="124" font-size="56" letter-spacing="1.5">GARDEN</text>
+    <text x="210" y="174" font-size="56" letter-spacing="1.5">HERITAGE</text>
+    <text x="210" y="206" font-size="34" letter-spacing="3">UK</text>
+  </g>
+</svg>

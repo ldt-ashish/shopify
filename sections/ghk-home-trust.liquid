@@ -1,0 +1,79 @@
+<section class="ghk-homepage ghk-trust">
+  <div class="ghk-wrap">
+    <div class="ghk-trust__grid">
+      {% for block in section.blocks %}
+        <article class="ghk-trust__item" {{ block.shopify_attributes }}>
+          <span class="ghk-trust__icon">{{ block.settings.icon }}</span>
+          <h3 class="ghk-trust__title">{{ block.settings.title }}</h3>
+          <p class="ghk-trust__text">{{ block.settings.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GHK Trust Strip",
+  "tag": "section",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Trust point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon character",
+          "default": "*"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Handcrafted in Britain"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Sourced and shaped by local artisans using time-honoured techniques."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GHK Trust Strip",
+      "blocks": [
+        {
+          "type": "point",
+          "settings": {
+            "icon": "*",
+            "title": "Handcrafted in Britain",
+            "text": "Sourced and shaped by local artisans using time-honoured techniques."
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "icon": "*",
+            "title": "Lifetime Craftsmanship Guarantee",
+            "text": "Built to remain elegant through years of weather and seasons."
+          }
+        },
+        {
+          "type": "point",
+          "settings": {
+            "icon": "*",
+            "title": "Nature-First Materials",
+            "text": "Responsibly chosen materials that harmonise with the garden environment."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

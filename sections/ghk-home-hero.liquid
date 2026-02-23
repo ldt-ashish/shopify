@@ -1,0 +1,114 @@
+<section class="ghk-homepage ghk-homepage-hero">
+  <div class="ghk-homepage-hero__media">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 2800
+        | image_tag:
+          widths: '900,1200,1600,2200,2800',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt
+      }}
+    {% else %}
+      <img
+        src="{{ 'ghk-hero.png' | asset_url }}"
+        alt="Timeless Craftsmanship for the British Garden"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {% endif %}
+  </div>
+
+  <div class="ghk-wrap ghk-homepage-hero__content">
+    <div class="ghk-homepage-hero__grid">
+      {% if section.settings.kicker != blank %}
+        <p class="ghk-kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+      <h1 class="ghk-title ghk-homepage-hero__title">{{ section.settings.heading }}</h1>
+      {% if section.settings.copy != blank %}
+        <p class="ghk-copy ghk-homepage-hero__copy">{{ section.settings.copy }}</p>
+      {% endif %}
+
+      <div class="ghk-homepage-hero__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
+          <a class="ghk-button" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+        {% endif %}
+        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+          <a class="ghk-button-ghost" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.meta != blank %}
+        <p class="ghk-homepage-hero__meta">{{ section.settings.meta }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GHK Home Hero",
+  "tag": "section",
+  "class": "section-ghk-home-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Garden Heritage UK"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Timeless Craftsmanship for the British Garden"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Hand-finished pieces designed to age beautifully through every season, inspired by enduring British garden traditions."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary CTA label",
+      "default": "Shop The Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary CTA label",
+      "default": "Explore Our Story"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary CTA link"
+    },
+    {
+      "type": "text",
+      "id": "meta",
+      "label": "Small urgency line",
+      "default": "Meticulously produced in small seasonal batches."
+    }
+  ],
+  "presets": [
+    {
+      "name": "GHK Home Hero"
+    }
+  ]
+}
+{% endschema %}

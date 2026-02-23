@@ -1,0 +1,134 @@
+<section class="ghk-homepage ghk-section ghk-collections">
+  <div class="ghk-wrap">
+    <header class="ghk-section__head">
+      <p class="ghk-kicker ghk-section__kicker">{{ section.settings.kicker }}</p>
+      <h2 class="ghk-title ghk-section__title">{{ section.settings.heading }}</h2>
+      {% if section.settings.copy != blank %}
+        <p class="ghk-copy">{{ section.settings.copy }}</p>
+      {% endif %}
+    </header>
+
+    <div class="ghk-collections__grid">
+      {% for block in section.blocks %}
+        {% assign collection = block.settings.collection %}
+        {% assign target_link = block.settings.link %}
+        {% if target_link == blank and collection != blank %}
+          {% assign target_link = collection.url %}
+        {% endif %}
+
+        <a class="ghk-collection-card" href="{{ target_link | default: '#' }}" {{ block.shopify_attributes }}>
+          <div class="ghk-collection-card__media">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 1200
+                | image_tag: widths: '550,800,1000,1200', sizes: '(min-width: 750px) 33vw, 72vw', loading: 'lazy', alt: block.settings.image.alt
+              }}
+            {% elsif collection.featured_image != blank %}
+              {{
+                collection.featured_image
+                | image_url: width: 1200
+                | image_tag: widths: '550,800,1000,1200', sizes: '(min-width: 750px) 33vw, 72vw', loading: 'lazy', alt: collection.title
+              }}
+            {% else %}
+              {{ 'collection-apparel-1' | placeholder_svg_tag }}
+            {% endif %}
+          </div>
+
+          <h3 class="ghk-collection-card__title">{{ block.settings.title | default: collection.title }}</h3>
+          <p class="ghk-collection-card__text">{{ block.settings.text }}</p>
+          <p class="ghk-collection-card__link">{{ block.settings.link_label }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GHK Collections",
+  "tag": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Curated Collections"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Essentials for Refined Outdoor Living"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Each collection is assembled to bring structure, calm, and heritage detail to your garden sanctuary."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title override"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Weather-hardy elegance for enduring spaces."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Explore Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GHK Collections",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "title": "Deer Sets",
+            "text": "Distinctive heritage garden sets with enduring character."
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "title": "Garden Sculptures",
+            "text": "Classical focal points to anchor and elevate outdoor spaces."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

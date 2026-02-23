@@ -1,0 +1,64 @@
+<section class="ghk-homepage ghk-concierge">
+  <div class="ghk-wrap">
+    <div class="ghk-concierge__panel">
+      <p class="ghk-kicker ghk-section__kicker">{{ section.settings.kicker }}</p>
+      <h2 class="ghk-title ghk-section__title">{{ section.settings.heading }}</h2>
+      <p class="ghk-copy">{{ section.settings.copy }}</p>
+      {% if section.settings.cta_label != blank and section.settings.cta_link != blank %}
+        <div>
+          <a class="ghk-button" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+        </div>
+        <a class="ghk-floating-consult" href="{{ section.settings.cta_link }}">{{ section.settings.floating_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GHK Concierge CTA",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Design Concierge"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Need Guidance for Your Garden Layout?"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Book a one-to-one consultation for placement guidance, material recommendations, and curated product selection."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Book a Garden Consultation"
+    },
+    {
+      "type": "text",
+      "id": "floating_label",
+      "label": "Floating CTA label",
+      "default": "Garden Consultation"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "GHK Concierge CTA"
+    }
+  ]
+}
+{% endschema %}

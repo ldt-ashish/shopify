@@ -1,0 +1,88 @@
+<section class="ghk-homepage ghk-newsletter">
+  <div class="ghk-wrap">
+    <div class="ghk-newsletter__panel">
+      <p class="ghk-kicker ghk-section__kicker">{{ section.settings.kicker }}</p>
+      <h2 class="ghk-title ghk-section__title">{{ section.settings.heading }}</h2>
+      <p class="ghk-copy">{{ section.settings.copy }}</p>
+
+      {% form 'customer', class: 'ghk-newsletter__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input
+          class="ghk-newsletter__input"
+          type="email"
+          name="contact[email]"
+          value="{% if customer %}{{ customer.email }}{% endif %}"
+          placeholder="{{ section.settings.placeholder }}"
+          required
+        >
+        <button class="ghk-button" type="submit">{{ section.settings.button_label }}</button>
+
+        {% if form.posted_successfully? %}
+          <p class="ghk-newsletter__message ghk-newsletter__message--success">{{ section.settings.success_text }}</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <p class="ghk-newsletter__message">{{ form.errors | default_errors }}</p>
+        {% endif %}
+      {% endform %}
+
+      <p class="ghk-newsletter__note">{{ section.settings.note }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "GHK Newsletter",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Private Journal"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join Our Garden Letter"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Copy",
+      "default": "Receive seasonal styling notes, new workshop releases, and stories from heritage British gardens."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Success message",
+      "default": "Thank you. You are now subscribed to the Garden Heritage letter."
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Privacy note",
+      "default": "No discount spam. Only thoughtful updates from the studio."
+    }
+  ],
+  "presets": [
+    {
+      "name": "GHK Newsletter"
+    }
+  ]
+}
+{% endschema %}

@@ -53,13 +53,23 @@
     class="header-logo__image-container header-logo__image-container--original"
     data-testid="header-logo"
   >
-    {% render 'image',
-      image: settings.logo,
-      class: 'header-logo__image',
-      height: settings.logo_height,
-      text_fallback: shop.name,
-      style: logo_style
-    %}
+    {% if settings.logo != blank %}
+      {% render 'image',
+        image: settings.logo,
+        class: 'header-logo__image',
+        height: settings.logo_height,
+        text_fallback: shop.name,
+        style: logo_style
+      %}
+    {% else %}
+      <img
+        src="{{ 'ghk-logo2.svg' | asset_url }}"
+        class="header-logo__image"
+        alt="{{ shop.name }}"
+        style="height: {{ settings.logo_height }}px; width: auto;"
+        loading="eager"
+      >
+    {% endif %}
   </span>
 
   {% if use_inverse_logo %}
@@ -74,6 +84,19 @@
         text_fallback: shop.name,
         style: inverse_logo_style
       %}
+    </span>
+  {% elsif settings.logo == blank %}
+    <span
+      class="header-logo__image-container header-logo__image-container--inverse"
+      data-testid="header-logo-inverse"
+    >
+      <img
+        src="{{ 'ghk-logo2.svg' | asset_url }}"
+        class="header-logo__image"
+        alt="{{ shop.name }}"
+        style="height: {{ settings.logo_height }}px; width: auto;"
+        loading="eager"
+      >
     </span>
   {% endif %}
 </a>
