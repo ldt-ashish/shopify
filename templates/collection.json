@@ -176,7 +176,7 @@
                 "corner_radius": 0,
                 "padding-block-start": 4,
                 "padding-block-end": 0,
-                "padding-inline-start": 0,
+                "padding-inline-start": 5,
                 "padding-inline-end": 0
               },
               "blocks": {}
@@ -197,8 +197,8 @@
                 "case": "none",
                 "color": "var(--color-foreground)",
                 "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
+                "padding-block-end": 3,
+                "padding-inline-start": 5,
                 "padding-inline-end": 0
               },
               "blocks": {}
