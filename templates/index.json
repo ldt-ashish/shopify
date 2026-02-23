@@ -12,7 +12,7 @@
     "ghk_home_hero": {
       "type": "ghk-home-hero",
       "settings": {
-        "image": "",
+        "image": "shopify://shop_images/kuyune-VlnP-n6R3_8-unsplash.jpg",
         "kicker": "Garden Heritage UK",
         "heading": "Timeless Craftsmanship for the British Garden",
         "copy": "Hand-finished pieces designed to age beautifully through every season, inspired by enduring British garden traditions.",
@@ -67,7 +67,8 @@
             "collection": "deer-sets",
             "title": "Deer Sets",
             "text": "Distinctive heritage garden sets with enduring character.",
-            "link_label": "Shop Deer Sets"
+            "link_label": "Shop Deer Sets",
+            "link": ""
           }
         },
         "collection_2": {
@@ -76,7 +77,8 @@
             "collection": "garden-sculptures",
             "title": "Garden Sculptures",
             "text": "Classical focal points to anchor and elevate outdoor spaces.",
-            "link_label": "Shop Garden Sculptures"
+            "link_label": "Shop Garden Sculptures",
+            "link": ""
           }
         }
       },
@@ -172,4 +174,3 @@
     "ghk_home_newsletter"
   ]
 }
-

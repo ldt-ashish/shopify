@@ -70,6 +70,11 @@ a {
   background: rgb(45 71 57 / 8%);
 }
 
+.button.button-unstyled {
+  background: transparent;
+  border-color: transparent;
+}
+
 input,
 textarea,
 select {
@@ -589,25 +594,15 @@ main[data-template*='blog'] .section {
 }
 
 /* Header and footer brand styling */
-#header-group .shopify-section {
-  position: relative;
-}
-
-#header-group .shopify-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgb(244 241 234 / 94%);
-  pointer-events: none;
-}
-
 #header-group #header-component,
 #header-group #header-component .header__row,
 #header-group #header-component .header__navigation-bar-row {
+  background: rgb(244 241 234 / 94%);
   color: var(--ghk-color-hunter);
 }
 
-#header-group #header-component :is(a, button, .button, .button-secondary, .header-actions__action) {
+#header-group #header-component .header__row :is(a, button, .button, .button-secondary, .header-actions__action),
+#header-group #header-component .header__navigation-bar-row :is(a, button, .button, .button-secondary, .header-actions__action) {
   color: var(--ghk-color-hunter);
 }
 
@@ -647,6 +642,72 @@ footer .button-secondary {
 
 footer a:hover {
   color: var(--ghk-color-gold);
+}
+
+/* Cart drawer visibility fix */
+.cart-drawer__dialog,
+.cart-drawer__inner,
+.cart-drawer__content,
+.cart-drawer__summary {
+  background: var(--ghk-color-stone);
+  color: var(--ghk-color-charcoal);
+}
+
+.cart-drawer__dialog :is(p, span, a, small, dt, dd, th, td, h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+.cart-drawer__dialog :is(.svg-wrapper, .svg-wrapper svg, .cart-items__remove svg) {
+  color: var(--ghk-color-hunter);
+  fill: currentColor;
+}
+
+.cart-drawer__dialog .cart-items__title,
+.cart-drawer__dialog .cart-drawer__heading,
+.cart-drawer__dialog .cart-totals__total-value {
+  color: var(--ghk-color-charcoal);
+}
+
+.cart-drawer__dialog .cart-items__table-row,
+.cart-drawer__dialog .cart-actions,
+.cart-drawer__dialog .cart-drawer__summary {
+  border-color: rgb(45 71 57 / 18%);
+}
+
+.cart-drawer__dialog .button {
+  background: var(--ghk-color-hunter);
+  border-color: var(--ghk-color-hunter);
+  color: #fff;
+}
+
+.cart-drawer__dialog .button-secondary {
+  background: transparent;
+  border-color: rgb(45 71 57 / 45%);
+  color: var(--ghk-color-hunter);
+}
+
+/* Keep cart drawer CTA text visible (higher specificity than header nav rules) */
+#header-group #header-component .cart-drawer__dialog .button,
+#header-group #header-component .cart-drawer__dialog .button .button-text {
+  color: #fff;
+}
+
+#header-group #header-component .cart-drawer__dialog .button-secondary,
+#header-group #header-component .cart-drawer__dialog .button-secondary .button-text {
+  color: var(--ghk-color-hunter);
+}
+
+/* Cart close button: force visible X icon */
+#header-group #header-component .cart-drawer__dialog .cart-drawer__close-button {
+  background: var(--ghk-color-hunter);
+  border: 1px solid var(--ghk-color-hunter);
+  border-radius: 999px;
+  color: #fff;
+}
+
+#header-group #header-component .cart-drawer__dialog .cart-drawer__close-button :is(svg, path) {
+  color: #fff;
+  stroke: #fff;
 }
 
 @media (max-width: 999px) {
