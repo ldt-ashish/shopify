@@ -16,6 +16,7 @@ body {
   background: var(--ghk-color-stone);
   color: var(--ghk-color-charcoal);
   font-family: var(--ghk-sans);
+  overflow-x: hidden;
 }
 
 h1,
@@ -109,6 +110,97 @@ main[data-template*='blog'] .section {
   font-family: var(--ghk-serif);
 }
 
+/* Page template responsiveness (About Us, Contact and standard pages) */
+.main-page__content {
+  width: min(100%, 880px);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 3.2vw, 2rem);
+}
+
+main[data-template*='page'] .main-page__content :is(h1, h2, h3) {
+  font-family: var(--ghk-serif);
+  line-height: 1.15;
+}
+
+main[data-template*='page'] .main-page__content :is(p, li) {
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--ghk-color-muted);
+}
+
+/* Premium hamburger / drawer design */
+.menu-drawer {
+  background: linear-gradient(180deg, #f4f1ea 0%, #efeade 100%);
+  border-right: 1px solid rgb(45 71 57 / 14%);
+}
+
+.menu-drawer__navigation {
+  padding-top: 1rem;
+}
+
+.menu-drawer__menu {
+  padding-inline: 1.25rem;
+}
+
+.menu-drawer__list-item--divider {
+  border-block-end: 1px solid rgb(45 71 57 / 14%);
+}
+
+.menu-drawer__menu-item--mainlist {
+  min-height: 56px;
+  font-family: var(--ghk-serif);
+  font-size: 1.36rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ghk-color-charcoal);
+}
+
+.menu-drawer__menu-item--child,
+.menu-drawer__menu-item--parent {
+  font-family: var(--ghk-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ghk-color-hunter);
+}
+
+.menu-drawer__menu-item > .svg-wrapper,
+.menu-drawer__back-button > .svg-wrapper {
+  color: var(--ghk-color-hunter);
+}
+
+.menu-drawer__close-button {
+  background: var(--ghk-color-hunter);
+  border: 1px solid var(--ghk-color-hunter);
+  border-radius: 999px;
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-drawer__close-button :is(svg, path) {
+  color: #fff;
+  stroke: #fff;
+}
+
+.menu-drawer__back-button {
+  font-family: var(--ghk-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.74rem;
+  color: var(--ghk-color-hunter);
+}
+
+.menu-drawer__utility-links {
+  margin-inline: 1.25rem;
+  padding-block: 0.65rem 0;
+  border-top: 1px solid rgb(45 71 57 / 16%);
+  background: transparent;
+}
+
 .ghk-homepage {
   background: var(--ghk-color-stone);
   color: var(--ghk-color-charcoal);
@@ -116,8 +208,9 @@ main[data-template*='blog'] .section {
 
 .ghk-wrap {
   max-width: var(--ghk-max);
+  width: 100%;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-inline: 1.5rem;
 }
 
 .ghk-kicker {
@@ -749,12 +842,43 @@ footer a:hover {
 }
 
 @media (max-width: 749px) {
+  .ghk-homepage-hero > .ghk-wrap.ghk-homepage-hero__content {
+    padding-inline-start: max(1.25rem, env(safe-area-inset-left)) !important;
+    padding-inline-end: max(1.25rem, env(safe-area-inset-right)) !important;
+  }
+
+  .ghk-wrap {
+    padding-inline-start: max(1rem, env(safe-area-inset-left));
+    padding-inline-end: max(1rem, env(safe-area-inset-right));
+  }
+
+  .main-page__content {
+    width: min(100%, 640px);
+    padding-inline: 1rem;
+  }
+
+  main[data-template*='page'] .main-page__content :is(h1, h2) {
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
+  }
+
+  main[data-template*='page'] .main-page__content :is(p, li) {
+    font-size: 1rem;
+    line-height: 1.68;
+  }
+
   .ghk-homepage-hero {
     min-height: 74svh;
   }
 
   .ghk-homepage-hero__content {
-    padding: 6.5rem 0 4rem;
+    padding-block: 6.5rem 4rem;
+    padding-inline-start: max(1.25rem, env(safe-area-inset-left));
+    padding-inline-end: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .ghk-homepage-hero__grid {
+    width: 100%;
+    margin-inline: 0;
   }
 
   .ghk-homepage-hero__title {
@@ -793,11 +917,63 @@ footer a:hover {
     font-size: 0.98rem;
   }
 
+  /* Mobile fixes for Deer Sets / Garden Sculptures highlight sections */
+  .ghk-products {
+    padding-block: 3.25rem;
+  }
+
+  .ghk-products .ghk-section__head {
+    margin-bottom: 1.25rem;
+    gap: 0.6rem;
+  }
+
+  .ghk-products .ghk-section__title {
+    font-size: clamp(1.45rem, 6.6vw, 2rem);
+    line-height: 1.16;
+  }
+
+  .ghk-products .ghk-copy {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .ghk-products__grid {
+    grid-auto-flow: row;
+    grid-auto-columns: initial;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow-x: visible;
+    scroll-snap-type: none;
+    gap: 0.8rem;
+  }
+
+  .ghk-products .ghk-product-card {
+    min-width: 0;
+  }
+
+  .ghk-products .ghk-button {
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
   .ghk-floating-consult {
     right: 0.8rem;
     bottom: 0.8rem;
     font-size: 0.68rem;
     min-height: 40px;
     padding: 0.55rem 0.8rem;
+  }
+
+  .menu-drawer__menu {
+    padding-inline: 1rem;
+  }
+
+  .menu-drawer__menu-item--mainlist {
+    min-height: 52px;
+    font-size: 1.18rem;
+  }
+
+  .menu-drawer__close-button {
+    width: 40px;
+    height: 40px;
   }
 }

@@ -4,6 +4,7 @@
 <div class="section color-{{ section.settings.color_scheme }}">
   <div
     class="
+      main-page__content
       spacing-style
       layout-panel-flex
       layout-panel-flex--column
@@ -11,7 +12,6 @@
       mobile-column
     "
     style="
-    max-width: 70%; margin: 0 auto;
       {% render 'layout-panel-style', settings: section.settings %}
       {% render 'spacing-style', settings: section.settings %}
     "
