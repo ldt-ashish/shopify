@@ -811,6 +811,40 @@ main:has(.shopify-policy__container) {
   font-family: var(--ghk-serif);
 }
 
+/* Increase logo size */
+#header-group #header-component .header-logo__image {
+  height: 56px !important;
+  width: auto !important;
+  max-height: none;
+  display: block;
+}
+
+@media (max-width: 749px) {
+  #header-group #header-component .header-logo__image {
+    height: 46px !important;
+    width: auto !important;
+  }
+}
+
+/* Keep logo and menu labels vertically aligned after logo resize */
+#header-group #header-component .header__row--bottom {
+  align-items: center;
+}
+
+#header-group #header-component .header__row--bottom .header__column {
+  align-items: center;
+}
+
+#header-group #header-component .header__row--bottom .menu-list {
+  align-items: center;
+}
+
+#header-group #header-component .header__row--bottom .menu-list__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 56px;
+}
+
 #header-group #header-component .header__row {
   border-bottom-color: rgb(45 71 57 / 14%);
 }
