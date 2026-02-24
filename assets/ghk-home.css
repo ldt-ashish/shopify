@@ -3,6 +3,12 @@
   --ghk-color-hunter: #2d4739;
   --ghk-color-oak: #5c4033;
   --ghk-color-stone: #f4f1ea;
+  --ghk-color-header: #f3efe7;
+  --ghk-color-surface-1: #f8f5ee;
+  --ghk-color-surface-2: #efe9dd;
+  --ghk-color-surface-3: #e4dccf;
+  --ghk-color-topbar: #e4eee4;
+  --ghk-color-navbar: #f7f3ea;
   --ghk-color-gold: #c5a059;
   --ghk-color-charcoal: #1f2320;
   --ghk-color-muted: #59615b;
@@ -101,7 +107,7 @@ main[data-template*='blog'] .section {
 .product-card,
 .collection-card,
 .resource-card {
-  background: #f8f6f2;
+  background: var(--ghk-color-surface-1);
   border: 1px solid rgb(45 71 57 / 10%);
 }
 
@@ -140,14 +146,14 @@ main[data-template*='page.contact'] > .shopify-section:has(.main-page__content) 
   border: 1px solid rgb(45 71 57 / 16%);
   border-bottom: 0;
   border-radius: 16px 16px 0 0;
-  background: #f7f4ee;
+  background: var(--ghk-color-surface-1);
 }
 
 main[data-template*='page.contact'] > .shopify-section:has(.contact-form) {
   border: 1px solid rgb(45 71 57 / 16%);
   border-top: 0;
   border-radius: 0 0 16px 16px;
-  background: #f7f4ee;
+  background: var(--ghk-color-surface-1);
   margin-bottom: clamp(1.25rem, 3.2vw, 2.6rem);
 }
 
@@ -204,7 +210,7 @@ main[data-template*='page.contact'] .contact-form__input:focus-visible {
   padding: clamp(1.25rem, 2.8vw, 2.5rem);
   border: 1px solid rgb(45 71 57 / 16%);
   border-radius: 16px;
-  background: linear-gradient(180deg, #f7f4ee 0%, #f3eee3 100%);
+  background: var(--ghk-color-surface-1);
   box-shadow: 0 12px 32px rgb(31 35 32 / 8%);
 }
 
@@ -438,7 +444,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-trust {
-  background: #ede8df;
+  background: var(--ghk-color-surface-2);
   padding: 2.2rem 0;
   border-block: 1px solid rgb(45 71 57 / 11%);
 }
@@ -516,7 +522,7 @@ main:has(.shopify-policy__container) {
 
 .ghk-collection-card__media {
   overflow: hidden;
-  background: #ddd;
+  background: var(--ghk-color-surface-3);
   aspect-ratio: 4 / 5;
 }
 
@@ -554,7 +560,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-products {
-  background: #f8f6f2;
+  background: var(--ghk-color-surface-1);
 }
 
 .ghk-products__grid {
@@ -571,7 +577,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-product-card__media {
-  background: #e6e1d7;
+  background: var(--ghk-color-surface-2);
   aspect-ratio: 4 / 5;
   overflow: hidden;
 }
@@ -612,7 +618,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-story__media {
-  background: #dcd6cb;
+  background: var(--ghk-color-surface-3);
   aspect-ratio: 5 / 4;
   overflow: hidden;
 }
@@ -646,7 +652,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-gallery-card {
-  background: #fff;
+  background: var(--ghk-color-surface-1);
   display: grid;
   gap: 0.9rem;
   padding: 0.9rem;
@@ -654,7 +660,7 @@ main:has(.shopify-policy__container) {
 
 .ghk-gallery-card__media {
   aspect-ratio: 1 / 1;
-  background: #ddd;
+  background: var(--ghk-color-surface-3);
   overflow: hidden;
 }
 
@@ -710,7 +716,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-concierge {
-  background: #f0ece3;
+  background: var(--ghk-color-surface-2);
   padding: 5.5rem 0;
 }
 
@@ -744,7 +750,7 @@ main:has(.shopify-policy__container) {
 }
 
 .ghk-newsletter {
-  background: #f8f6f2;
+  background: var(--ghk-color-surface-1);
   padding: 5.5rem 0 6.6rem;
 }
 
@@ -785,7 +791,7 @@ main:has(.shopify-policy__container) {
 #header-group #header-component,
 #header-group #header-component .header__row,
 #header-group #header-component .header__navigation-bar-row {
-  background: rgb(244 241 234 / 94%);
+  background: var(--ghk-color-navbar);
   color: var(--ghk-color-hunter);
 }
 
@@ -806,13 +812,27 @@ main:has(.shopify-policy__container) {
 }
 
 #header-group #header-component .header__row {
-  border-bottom-color: rgb(45 71 57 / 16%);
+  border-bottom-color: rgb(45 71 57 / 14%);
+}
+
+/* Different tone for top utility row to separate it from navbar */
+#header-group #header-component .header__row--top {
+  background: var(--ghk-color-topbar);
+  border-bottom: 1px solid rgb(45 71 57 / 18%);
+}
+
+#header-group #header-component .header__row--top :is(a, button, .header-actions__action) {
+  color: #244638;
+}
+
+#header-group #header-component .header__row--bottom {
+  background: var(--ghk-color-navbar);
 }
 
 /* Welcome announcement bar styling */
 #header-group .announcement-bar {
-  border-block-end: 1px solid rgb(45 71 57 / 16%);
-  background: linear-gradient(90deg, #edf1ea 0%, #f6f3eb 50%, #edf1ea 100%);
+  border-block-end: 1px solid rgb(45 71 57 / 20%);
+  background: linear-gradient(90deg, #deeadf 0%, #e8f1e8 50%, #deeadf 100%);
 }
 
 #header-group .announcement-bar .announcement-bar__text {
