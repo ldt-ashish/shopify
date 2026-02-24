@@ -112,7 +112,7 @@ main[data-template*='blog'] .section {
 
 /* Page template responsiveness (About Us, Contact and standard pages) */
 .main-page__content {
-  width: min(100%, 880px);
+  width: min(100%, 78vw, 1280px);
   margin: 0 auto;
   padding-inline: clamp(1rem, 3.2vw, 2rem);
 }
@@ -126,6 +126,68 @@ main[data-template*='page'] .main-page__content :is(p, li) {
   font-size: clamp(1rem, 1.4vw, 1.1rem);
   line-height: 1.75;
   color: var(--ghk-color-muted);
+}
+
+/* Contact page styling */
+main[data-template*='page.contact'] .main-page__content {
+  width: min(100%, 80vw, 1280px);
+  margin-block: clamp(1rem, 2.2vw, 1.9rem);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+main[data-template*='page.contact'] .main-page__content h1 {
+  text-align: center;
+  margin-block-end: 0.9rem;
+}
+
+main[data-template*='page.contact'] .contact-form {
+  width: min(100%, 80vw, 1280px);
+  margin-inline: auto;
+  padding: clamp(1rem, 2.2vw, 2rem);
+  border: 1px solid rgb(45 71 57 / 16%);
+  border-radius: 14px;
+  background: #f7f4ee;
+}
+
+main[data-template*='page.contact'] .contact-form__form {
+  gap: clamp(0.9rem, 1.4vw, 1.2rem);
+}
+
+main[data-template*='page.contact'] .contact-form__input {
+  border-color: rgb(45 71 57 / 28%);
+  background: #fff;
+  color: var(--ghk-color-charcoal);
+}
+
+main[data-template*='page.contact'] .contact-form__input:focus-visible {
+  outline: 2px solid rgb(45 71 57 / 45%);
+  outline-offset: 1px;
+}
+
+/* Policy pages (privacy/terms/refund/shipping) */
+.shopify-policy__container {
+  width: 80vw !important;
+  max-width: 80vw !important;
+  margin-inline: auto !important;
+  margin-block: clamp(1.25rem, 2.6vw, 2.5rem);
+  padding: clamp(1.25rem, 2.8vw, 2.5rem);
+  border: 1px solid rgb(45 71 57 / 16%);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f7f4ee 0%, #f3eee3 100%);
+  box-shadow: 0 12px 32px rgb(31 35 32 / 8%);
+}
+
+.shopify-policy__title {
+  color: var(--ghk-color-charcoal);
+}
+
+.shopify-policy__container :is(p, li) {
+  color: var(--ghk-color-muted);
+  line-height: 1.75;
 }
 
 /* Premium hamburger / drawer design */
@@ -714,6 +776,24 @@ main[data-template*='page'] .main-page__content :is(p, li) {
   border-bottom-color: rgb(45 71 57 / 16%);
 }
 
+/* Welcome announcement bar styling */
+#header-group .announcement-bar {
+  border-block-end: 1px solid rgb(45 71 57 / 16%);
+  background: linear-gradient(90deg, #edf1ea 0%, #f6f3eb 50%, #edf1ea 100%);
+}
+
+#header-group .announcement-bar .announcement-bar__text {
+  font-family: var(--ghk-serif);
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ghk-color-hunter);
+}
+
+#header-group .announcement-bar .announcement-bar__slide {
+  min-height: 2.25rem;
+}
+
 footer .section-background {
   background: var(--ghk-color-hunter) !important;
 }
@@ -785,6 +865,41 @@ footer a:hover {
   color: #fff;
 }
 
+#header-group #header-component .cart-drawer__dialog .cart__checkout-button.button {
+  background: var(--ghk-color-hunter);
+  border-color: var(--ghk-color-hunter);
+  color: #fff;
+}
+
+#header-group #header-component .cart-drawer__dialog .cart__checkout-button.button:hover {
+  background: #24382e;
+  border-color: #24382e;
+}
+
+/* Product dynamic checkout (Buy it now) button */
+.accelerated-checkout-block .shopify-payment-button__button,
+.accelerated-checkout-block button.shopify-payment-button__button,
+.accelerated-checkout-block button.shopify-payment-button__button--unbranded {
+  background: var(--ghk-color-hunter) !important;
+  color: #fff !important;
+  border-color: var(--ghk-color-hunter) !important;
+  box-shadow: inset 0 0 0 1px var(--ghk-color-hunter) !important;
+}
+
+.accelerated-checkout-block .shopify-payment-button__button:hover,
+.accelerated-checkout-block button.shopify-payment-button__button:hover,
+.accelerated-checkout-block button.shopify-payment-button__button--unbranded:hover {
+  background: #24382e !important;
+  border-color: #24382e !important;
+}
+
+shopify-accelerated-checkout,
+shopify-accelerated-checkout-cart {
+  --shopify-accelerated-checkout-button-background-color: var(--ghk-color-hunter);
+  --shopify-accelerated-checkout-button-text-color: #fff;
+  --shopify-accelerated-checkout-button-border-color: var(--ghk-color-hunter);
+}
+
 #header-group #header-component .cart-drawer__dialog .button-secondary,
 #header-group #header-component .cart-drawer__dialog .button-secondary .button-text {
   color: var(--ghk-color-hunter);
@@ -853,8 +968,15 @@ footer a:hover {
   }
 
   .main-page__content {
-    width: min(100%, 640px);
+    width: min(100%, 96vw);
     padding-inline: 1rem;
+  }
+
+  .shopify-policy__container {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    padding: 1rem;
+    border-radius: 12px;
   }
 
   main[data-template*='page'] .main-page__content :is(h1, h2) {
