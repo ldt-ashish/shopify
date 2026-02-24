@@ -787,6 +787,60 @@ main:has(.shopify-policy__container) {
   color: #1e4f31;
 }
 
+.ghk-faq {
+  background: var(--ghk-color-surface-1);
+}
+
+.ghk-faq__items {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.ghk-faq__item {
+  border: 1px solid rgb(45 71 57 / 16%);
+  border-radius: 12px;
+  background: #fff;
+  overflow: clip;
+}
+
+.ghk-faq__question {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  font-family: var(--ghk-serif);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  color: var(--ghk-color-charcoal);
+  cursor: pointer;
+}
+
+.ghk-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.ghk-faq__icon {
+  font-family: var(--ghk-sans);
+  font-size: 1.1rem;
+  color: var(--ghk-color-hunter);
+  transition: transform 0.2s ease;
+}
+
+.ghk-faq__item[open] .ghk-faq__icon {
+  transform: rotate(45deg);
+}
+
+.ghk-faq__answer {
+  padding: 0 1.1rem 1rem;
+  color: var(--ghk-color-muted);
+}
+
+.ghk-faq__answer p {
+  margin: 0;
+}
+
 /* Header and footer brand styling */
 #header-group #header-component,
 #header-group #header-component .header__row,

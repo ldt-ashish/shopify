@@ -138,6 +138,43 @@
         "cta_link": "shopify://collections/all"
       }
     },
+    "ghk_home_faq": {
+      "type": "custom-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Most UK orders arrive within 5-7 business days after dispatch.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "item",
+          "settings": {
+            "question": "Are your pieces weather-resistant?",
+            "answer": "<p>Yes. Our sculptures are designed for year-round outdoor display and natural aging.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "item",
+          "settings": {
+            "question": "Can I get help choosing the right piece?",
+            "answer": "<p>Yes. Contact us for tailored guidance based on your garden layout and style.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3"
+      ],
+      "settings": {
+        "kicker": "Need Help?",
+        "heading": "Frequently Asked Questions",
+        "copy": "Quick answers to common questions about delivery, materials, and placement.",
+        "open_first": true
+      }
+    },
     "ghk_home_concierge": {
       "type": "ghk-home-concierge",
       "settings": {
@@ -170,6 +207,7 @@
     "ghk_home_products_sculptures",
     "ghk_home_story",
     "ghk_home_limited",
+    "ghk_home_faq",
     "ghk_home_concierge",
     "ghk_home_newsletter"
   ]

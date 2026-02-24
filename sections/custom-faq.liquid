@@ -1,0 +1,117 @@
+<section class="ghk-homepage ghk-section ghk-faq">
+  <div class="ghk-wrap">
+    <div class="ghk-section__head">
+      {% if section.settings.kicker != blank %}
+        <p class="ghk-kicker ghk-section__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="ghk-title ghk-section__title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.copy != blank %}
+        <p class="ghk-copy">{{ section.settings.copy }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ghk-faq__items">
+      {% for block in section.blocks %}
+        <details
+          class="ghk-faq__item"
+          {{ block.shopify_attributes }}
+          {% if section.settings.open_first and forloop.first %}
+            open
+          {% endif %}
+        >
+          <summary class="ghk-faq__question">
+            <span>{{ block.settings.question }}</span>
+            <span class="ghk-faq__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="ghk-faq__answer rte">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Need Help?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Intro copy",
+      "default": "Everything you need to know about delivery, materials, and care."
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open first item by default",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does delivery take?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Most orders are dispatched within 2-4 business days and arrive within 5-7 business days in the UK.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Custom FAQ",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>Most UK orders arrive within 5-7 business days after dispatch.</p>"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "question": "Are your pieces weather-resistant?",
+            "answer": "<p>Yes. Our sculptures are made for year-round outdoor display and natural aging.</p>"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "question": "Can I get placement guidance?",
+            "answer": "<p>Yes. Use our contact page and we can suggest positioning based on your garden layout.</p>"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3"]
+    }
+  ]
+}
+{% endschema %}

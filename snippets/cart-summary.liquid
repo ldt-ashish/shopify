@@ -5,7 +5,46 @@
   @param {string} [section_id] - The section ID for cart discount component.
 {%- enddoc -%}
 
+{%- liquid
+  assign free_shipping_threshold = 5000
+  assign free_shipping_remaining = free_shipping_threshold | minus: cart.total_price
+  assign free_shipping_progress = cart.total_price | times: 100 | divided_by: free_shipping_threshold
+  assign free_shipping_progress = free_shipping_progress | at_most: 100
+-%}
+
 <div class="cart-totals">
+  <div
+    class="cart-free-shipping"
+    data-agency-free-shipping
+    data-threshold="{{ free_shipping_threshold }}"
+  >
+    <p
+      class="cart-free-shipping__text cart-primary-typography"
+      data-agency-free-shipping-text
+    >
+      {%- if free_shipping_remaining > 0 -%}
+        Spend <strong>{{ free_shipping_remaining | money }}</strong> more to unlock free shipping
+      {%- else -%}
+        You unlocked free shipping
+      {%- endif -%}
+    </p>
+    <div
+      class="cart-free-shipping__track"
+      data-agency-free-shipping-track
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="{{ free_shipping_progress }}"
+      aria-label="Free shipping progress"
+    >
+      <span
+        class="cart-free-shipping__bar"
+        data-agency-free-shipping-bar
+        style="--free-shipping-progress: {{ free_shipping_progress }}%;"
+      ></span>
+    </div>
+  </div>
+
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">
     {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -282,6 +321,38 @@
 </div>
 
 {% stylesheet %}
+  .cart-free-shipping {
+    display: grid;
+    gap: var(--gap-2xs);
+    width: 100%;
+  }
+
+  .cart-free-shipping__text {
+    margin: 0;
+    font-size: var(--font-size--sm);
+  }
+
+  .cart-free-shipping__text strong {
+    font-weight: 700;
+  }
+
+  .cart-free-shipping__track {
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: rgb(var(--color-foreground-rgb) / var(--opacity-10));
+    overflow: hidden;
+  }
+
+  .cart-free-shipping__bar {
+    display: block;
+    width: var(--free-shipping-progress, 0%);
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #2d4739 0%, #3f644f 100%);
+    transition: width 0.25s ease;
+  }
+
   .cart-actions {
     display: flex;
     flex-direction: column;

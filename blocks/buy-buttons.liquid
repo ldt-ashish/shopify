@@ -16,6 +16,17 @@
 
   assign can_add_to_cart = false
   assign add_to_cart_text = 'products.product.unavailable' | t
+  assign low_stock_threshold = block_settings.low_stock_threshold | default: 5
+  assign show_low_stock_notice = false
+  assign stock_status = ''
+  assign stock_status_text = ''
+  assign show_delivery_estimate = false
+  assign min_delivery_days = block_settings.delivery_min_days | default: 2
+  assign max_delivery_days = block_settings.delivery_max_days | default: 5
+
+  if max_delivery_days < min_delivery_days
+    assign max_delivery_days = min_delivery_days
+  endif
 
   if variant
     if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
@@ -31,6 +42,39 @@
     else
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.unavailable' | t
+    endif
+
+    if block_settings.show_low_stock_notice and variant.available and inventory_managed and inventory_policy == 'deny'
+      if inventory_quantity > 0 and inventory_quantity <= low_stock_threshold
+        assign show_low_stock_notice = true
+      endif
+    endif
+
+    if block_settings.show_low_stock_notice
+      if variant.available
+        if inventory_managed and inventory_policy == 'deny' and inventory_quantity > 0 and inventory_quantity <= low_stock_threshold
+          assign stock_status = 'low'
+          assign stock_status_text = 'Only ' | append: inventory_quantity | append: ' left in stock'
+        else
+          assign stock_status = 'in'
+          assign stock_status_text = 'In stock'
+        endif
+      else
+        assign stock_status = 'out'
+        assign stock_status_text = 'Out of stock'
+      endif
+    endif
+
+    if block_settings.show_delivery_estimate and variant.available
+      assign show_delivery_estimate = true
+
+      assign now_unix = 'now' | date: '%s' | plus: 0
+      assign min_delivery_seconds = min_delivery_days | times: 86400
+      assign max_delivery_seconds = max_delivery_days | times: 86400
+      assign min_delivery_unix = now_unix | plus: min_delivery_seconds
+      assign max_delivery_unix = now_unix | plus: max_delivery_seconds
+      assign min_delivery_date = min_delivery_unix | date: '%b %d'
+      assign max_delivery_date = max_delivery_unix | date: '%b %d'
     endif
   endif
 %}
@@ -216,6 +260,38 @@
             </span>
           {%- endunless -%}
 
+          {% if block_settings.show_low_stock_notice %}
+            <p
+              class="product-form__low-stock"
+              data-agency-low-stock
+              data-threshold="{{ low_stock_threshold }}"
+              data-low-message="Only [count] left in stock"
+              data-in-stock-message="In stock"
+              data-out-of-stock-message="Out of stock"
+              data-stock-state="{{ stock_status }}"
+            >
+              {{ stock_status_text }}
+            </p>
+          {% endif %}
+
+          {% if block_settings.show_delivery_estimate %}
+            <p
+              class="product-form__delivery-estimate"
+              data-agency-delivery-estimate
+              data-min-days="{{ min_delivery_days }}"
+              data-max-days="{{ max_delivery_days }}"
+              data-prefix="Estimated delivery:"
+              data-unavailable-text=""
+              {% unless show_delivery_estimate %}
+                hidden
+              {% endunless %}
+            >
+              {% if show_delivery_estimate %}
+                Estimated delivery: {{ min_delivery_date }}{% if max_delivery_date != min_delivery_date %} - {{ max_delivery_date }}{% endif %}
+              {% endif %}
+            </p>
+          {% endif %}
+
           {% content_for 'block',
             type: 'add-to-cart',
             id: 'add-to-cart',
@@ -385,6 +461,19 @@
     min-width: fit-content;
   }
 
+  .product-form-buttons > .product-form__low-stock:not([data-stock-state='in']),
+  .product-form-buttons > .product-form__delivery-estimate {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .product-form-buttons > .product-form__low-stock[data-stock-state='in'] {
+    flex: 1 1 11rem;
+    width: auto;
+    min-width: 10.5rem;
+  }
+
   .product-form-buttons--stacked
     > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
     flex-basis: 51%;
@@ -464,6 +553,96 @@
     align-items: flex-start;
     gap: var(--gap-xs);
     margin-block-end: var(--gap-xs);
+  }
+
+  .product-form__low-stock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: var(--gap-2xs) 0 var(--gap-xs);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.625rem;
+    border: 1px solid transparent;
+    background: rgb(var(--color-foreground-rgb) / 0.04);
+    color: rgb(var(--color-foreground-rgb) / 0.85);
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+  }
+
+  .product-form__low-stock::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: currentcolor;
+    flex: 0 0 auto;
+  }
+
+  .product-form__low-stock[data-stock-state='in'] {
+    color: #236247;
+    border-color: rgb(35 98 71 / 0.22);
+    background: rgb(35 98 71 / 0.1);
+  }
+
+  .product-form__low-stock[data-stock-state='low'] {
+    color: #7d2323;
+    border-color: rgb(143 46 46 / 0.22);
+    background: rgb(143 46 46 / 0.1);
+  }
+
+  .product-form__low-stock[data-stock-state='out'] {
+    color: #7b5563;
+    border-color: rgb(123 85 99 / 0.24);
+    background: rgb(123 85 99 / 0.1);
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 1024px) {
+    .product-form-buttons {
+      gap: calc(var(--gap-sm) * 0.7);
+    }
+
+    .product-form-buttons button {
+      padding-block: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .quantity-selector {
+      height: calc(var(--height-buy-buttons) - 0.35rem);
+    }
+
+    .product-form__delivery-estimate {
+      font-size: 0.92rem;
+    }
+
+    .product-form-buttons > .product-form__low-stock:not([data-stock-state='in']),
+    .product-form-buttons > .product-form__delivery-estimate {
+      margin-top: var(--gap-xs);
+    }
+
+    .product-form-buttons > .product-form__low-stock[data-stock-state='in'] {
+      flex: 1 1 11rem;
+      min-width: 11rem;
+      width: auto;
+      margin: 0;
+      min-height: calc(var(--height-buy-buttons) - 0.35rem);
+      align-self: stretch;
+    }
+
+    .product-form-buttons > .product-form__delivery-estimate {
+      flex: 0 0 100%;
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+
+  .product-form__delivery-estimate {
+    flex: 1 0 100%;
+    margin: 0 0 var(--gap-xs);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: var(--font-size--sm);
+    font-weight: 500;
   }
 
   .product__pickup-availabilities {
@@ -694,6 +873,45 @@
       "id": "gift_card_form",
       "label": "t:settings.gift_card_form",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_low_stock_notice",
+      "label": "Show low stock notice",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_delivery_estimate",
+      "label": "Show delivery estimate",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "delivery_min_days",
+      "label": "Delivery min days",
+      "min": 1,
+      "max": 14,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "delivery_max_days",
+      "label": "Delivery max days",
+      "min": 1,
+      "max": 21,
+      "step": 1,
+      "default": 5
     },
     {
       "type": "paragraph",

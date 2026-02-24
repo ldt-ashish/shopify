@@ -5,6 +5,10 @@
   {% assign product_title = '<p>' | append: text | append: '</p>' %}
   {% render 'text', fallback_text: product_title, block: block %}
 {% else %}
+  {% liquid
+    assign subtitle_metafield = closest.product.metafields.custom.subtitle
+    assign subtitle_text = subtitle_metafield.value | default: subtitle_metafield
+  %}
   {% assign product_title = '<p>' | append: closest.product.title | append: '</p>' %}
   <a
     class="contents user-select-text"
@@ -13,7 +17,21 @@
   >
     {% render 'text', fallback_text: product_title, block: block %}
   </a>
+  {% if subtitle_text != blank %}
+    <p class="product-title__subtitle">
+      {{ subtitle_text | escape }}
+    </p>
+  {% endif %}
 {% endif %}
+
+{% stylesheet %}
+  .product-title__subtitle {
+    margin: 0.35rem 0 0;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: clamp(0.92rem, 1.3vw, 1.05rem);
+    line-height: 1.5;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
