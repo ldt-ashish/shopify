@@ -129,14 +129,41 @@ main[data-template*='page'] .main-page__content :is(p, li) {
 }
 
 /* Contact page styling */
-main[data-template*='page.contact'] .main-page__content {
+main[data-template*='page.contact'] > .shopify-section:has(.main-page__content),
+main[data-template*='page.contact'] > .shopify-section:has(.contact-form) {
   width: min(100%, 80vw, 1280px);
-  margin-block: clamp(1rem, 2.2vw, 1.9rem);
-  padding: 0;
-  border: 0;
-  border-radius: 0;
+  margin-inline: auto;
+}
+
+main[data-template*='page.contact'] > .shopify-section:has(.main-page__content) {
+  margin-top: clamp(1.25rem, 3.2vw, 2.6rem);
+  border: 1px solid rgb(45 71 57 / 16%);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: #f7f4ee;
+}
+
+main[data-template*='page.contact'] > .shopify-section:has(.contact-form) {
+  border: 1px solid rgb(45 71 57 / 16%);
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: #f7f4ee;
+  margin-bottom: clamp(1.25rem, 3.2vw, 2.6rem);
+}
+
+main[data-template*='page.contact'] > .shopify-section:has(.main-page__content) .section-background,
+main[data-template*='page.contact'] > .shopify-section:has(.contact-form) .section-background {
+  display: none;
+}
+
+main[data-template*='page.contact'] > .shopify-section:has(.main-page__content) .section,
+main[data-template*='page.contact'] > .shopify-section:has(.contact-form) .section {
   background: transparent;
-  box-shadow: none;
+}
+
+main[data-template*='page.contact'] .main-page__content {
+  width: 100%;
+  padding: clamp(1.2rem, 2.6vw, 2.2rem) clamp(1.2rem, 2.6vw, 2.2rem) 0;
 }
 
 main[data-template*='page.contact'] .main-page__content h1 {
@@ -145,12 +172,12 @@ main[data-template*='page.contact'] .main-page__content h1 {
 }
 
 main[data-template*='page.contact'] .contact-form {
-  width: min(100%, 80vw, 1280px);
+  width: 100%;
   margin-inline: auto;
-  padding: clamp(1rem, 2.2vw, 2rem);
-  border: 1px solid rgb(45 71 57 / 16%);
-  border-radius: 14px;
-  background: #f7f4ee;
+  padding: clamp(1rem, 2.2vw, 2rem) clamp(1.2rem, 2.6vw, 2.2rem) clamp(1.2rem, 2.6vw, 2.2rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 main[data-template*='page.contact'] .contact-form__form {
@@ -173,12 +200,18 @@ main[data-template*='page.contact'] .contact-form__input:focus-visible {
   width: 80vw !important;
   max-width: 80vw !important;
   margin-inline: auto !important;
-  margin-block: clamp(1.25rem, 2.6vw, 2.5rem);
+  margin-block: 0 clamp(2.5rem, 5vw, 5rem);
   padding: clamp(1.25rem, 2.8vw, 2.5rem);
   border: 1px solid rgb(45 71 57 / 16%);
   border-radius: 16px;
   background: linear-gradient(180deg, #f7f4ee 0%, #f3eee3 100%);
   box-shadow: 0 12px 32px rgb(31 35 32 / 8%);
+}
+
+/* Policy page top spacing below header (prevents margin-collapsing with first child) */
+main:has(.shopify-policy__container) {
+  padding-top: clamp(1.25rem, 3.2vw, 2.6rem);
+  padding-bottom: clamp(1.25rem, 3.2vw, 2.6rem);
 }
 
 .shopify-policy__title {
@@ -975,8 +1008,28 @@ shopify-accelerated-checkout-cart {
   .shopify-policy__container {
     width: 96vw !important;
     max-width: 96vw !important;
+    margin-block: 0 2rem;
     padding: 1rem;
     border-radius: 12px;
+  }
+
+  main[data-template*='page.contact'] > .shopify-section:has(.main-page__content),
+  main[data-template*='page.contact'] > .shopify-section:has(.contact-form) {
+    width: min(100%, 96vw);
+  }
+
+  main[data-template*='page.contact'] > .shopify-section:has(.main-page__content) {
+    margin-top: 1rem;
+    border-radius: 12px 12px 0 0;
+  }
+
+  main[data-template*='page.contact'] > .shopify-section:has(.contact-form) {
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 2rem;
+  }
+
+  main:has(.shopify-policy__container) {
+    padding-top: 1rem;
   }
 
   main[data-template*='page'] .main-page__content :is(h1, h2) {
